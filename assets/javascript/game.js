@@ -1,72 +1,51 @@
-
-
-        // <p id="guesserText" ></p>
-        // <p id="machineText" ></p>
-        // <p id="winText" ></p>
-        // <p id="loseText" ></p>
-        
-
-
-var letterBank = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+var letterBank = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"] 
+var userGuesses = [];
+var guessAmount = 9
 var wins = 0;
 var losses = 0;
 
-var guesserText = document.getElementById("guesserText");
-var machineText = document.getElementById("machineChoice");
-var winText = document.getElementById("winText");
-var loseText = document.getElementById("loseText");
-// var attemptText = document.getElementById("ties-text");
+var machineChoice = letterBank[Math.floor(Math.random() * letterBank.length)];
+console.log("computer guess: ", machineChoice);
 
-
-document.onkeyup = function(event) {
-        console.log()
-        
+document.onkeyup = function(event) {  
     var userGuess = event.key;
-    
-        var machineChoice = letterBank[Math.floor(Math.random() * letterBank.length)]; }
+    // flagging
+    var isItAlphabet = false;
 
-
-
-        if ((userGuess === machineChoice)) {
-
-    wins++;
-
+    for(var i = 0; i < letterBank.length; i++) {
+        if (userGuess === letterBank[i]) {
+            isItAlphabet = true;
         }
+    }
 
-        else {
-            looses++
+    if (isItAlphabet === true) {
+        userGuesses.push(userGuess);
+        // console.log(userGuesses);
+        guessAmount--;
 
+        document.getElementById("guesserText").textContent = userGuesses;
+        document.getElementById("guessLeft").textContent = guessAmount;
+
+        if (userGuess === machineChoice) {
+            wins++;
+            reset();
+            document.getElementById("winText").textContent = wins;
+        } else if (guessAmount === 0){
+         
+            losses++;
+            reset();
+            document.getElementById("loseText").textContent = losses;
         }
+    } else {
+        alert("Please press a-z")
+    }
+};
 
-
-
-        guesserText.textContent = document.getElementsByClassName("letterList") + userGuess;
-        winText.textContent = document.getElementsByClassName("userWin") + winText;
-        loseText.textContent = document.getElementsByClassName("userLose") + loseText;
-
-
-
-
-
-
-
-
-
-        // ******************************working code************************************
-
-
-        // To console log "Your guesses so far" line**************************************
-
-
-        
-    <script type="text/javascript" >
-    
-    var userGuess = document.getElementById("guesserText");
-    
-    document.onkeyup = function(event) {
-        console.log(event);
-            userGuess.textContent = event.key;
-    };
-    
-    
-    </script>   
+var reset = function() {
+    guessAmount = 9;
+    userGuesses = [];
+    machineChoice = letterBank[Math.floor(Math.random() * letterBank.length)];
+    console.log("changed?", machineChoice);
+    document.getElementById("guesserText").textContent = userGuesses;
+    document.getElementById("guessLeft").textContent = guessAmount;
+}
