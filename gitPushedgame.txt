@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <meta charset="utf-8"> -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <title>Psychic Game</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+    
+    <div id="second-line">
+        <h2 id="headerText">Guess What Letter I'm Thinking of!!!</h2>
+        <p id="guessLeft">Guesses Left:<span id="guessSpan"></span></p>
+        <p id="winText" >Wins:<span id="winSpan"></span></p>
+        <p id="loseText" >Losses:<span id="loseSpan "></span></p></div>
+        
+        
+        <!-- <p id="machineText" >Secret Letter:<span id="secretSpan"></span></p></div> -->
+        
+        <p id="letterList">Your Guesses So Far:<span id="guesserText"></span></div>                 <!-- working ************************ -->
+            
+
+
+        <script type="text/javascript" >                                                           
+            
+var userGuess = document.getElementById("guesserText");
+// var machineChoice = document.getElementById("machineText");
+document.onkeyup = function(event) {
+    console.log(event);
+    userGuess.textContent = event.key;
+};
+// working*****************
+var letterBank = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+var machineChoice = letterBank[Math.floor(Math.random() * letterBank.length)]; 
+var wins = document.getElementById("winText")
+var looses = document.getElementById("loseText")
+    for (var i = 0; i < machineChoice.length; i++) {
+        console.log ("Secret Letter:" + machineChoice[i]);}
+        
+//         document.onkeyup = function(event) {
+//     console.log(machineChoice);
+//         machineChoice.textContent = event.key;
+// };
+    
+    // for (let i = 0; index < array.length; index++) {
+    //     const element = array[index];
+        
+    // }
+if ((document.getElementById("winText") === document.getElementById("machineText"))){
+wins++;
+}
+else {
+    looses++
+}
+    // machineChoice.textContent = "";
+</script>                              
+</body>
+</html>

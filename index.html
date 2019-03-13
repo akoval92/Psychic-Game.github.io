@@ -1,87 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- <meta charset="utf-8"> -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta charset="utf-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Psychic Game</title>
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
+
+        <h4>Can You Guess The Letter?</h4>
     
     <div id="second-line">
         <h2 id="headerText">Guess What Letter I'm Thinking of!!!</h2>
-        <p id="guessLeft">Guesses Left:<span id="guessSpan"></span></p>
-        <p id="winText" >Wins:<span id="winSpan"></span></p>
-        <p id="loseText" >Losses:<span id="loseSpan "></span></p></div>
+        <p >Guesses Left:<span id="guessLeft"></span></p>
+        <p  >Win: <span id="winText"></span></p>
+        <p  >Losses: <span id="loseText"></span></p>
+    </div>
         
         
         <!-- <p id="machineText" >Secret Letter:<span id="secretSpan"></span></p></div> -->
         
-        <p id="letterList">Your Guesses So Far:<span id="guesserText"></span></div>                 <!-- working ************************ -->
+        <p id="letterList">Your Guesses So Far:<span id="guesserText"></span></p>
+                   <!-- working ************************ -->
             
 
 
         <script type="text/javascript" >                                                           
-            
+            var letterBank = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"] 
+            var userGuesses = [];
+            var guessAmount = 9
+            var wins = 0;
+            var losses = 0;
 
+            var machineChoice = letterBank[Math.floor(Math.random() * letterBank.length)];
+            console.log("computer guess: ", machineChoice);
 
+            document.onkeyup = function(event) {  
+                var userGuess = event.key;
+                // flagging
+                var isItAlphabet = false;
 
-var userGuess = document.getElementById("guesserText");
-// var machineChoice = document.getElementById("machineText");
+                for(var i = 0; i < letterBank.length; i++) {
+                    if (userGuess === letterBank[i]) {
+                        isItAlphabet = true;
+                    }
+                }
 
+                if (isItAlphabet === true) {
+                    userGuesses.push(userGuess);
+                    // console.log(userGuesses);
+                    guessAmount--;
 
-document.onkeyup = function(event) {
-    console.log(event);
-    userGuess.textContent = event.key;
-};
+                    document.getElementById("guesserText").textContent = userGuesses;
+                    document.getElementById("guessLeft").textContent = guessAmount;
+
+                    if (userGuess === machineChoice) {
+                        wins++;
+                        reset();
+                        document.getElementById("winText").textContent = wins;
+                    } else if (guessAmount === 0){
+                     
+                        losses++;
+                        reset();
+                        document.getElementById("loseText").textContent = losses;
+                    }
+                } else {
+                    alert("Please press a-z")
+                }
+            };
+
+            var reset = function() {
+                guessAmount = 9;
+                userGuesses = [];
+                machineChoice = letterBank[Math.floor(Math.random() * letterBank.length)];
+                console.log("changed?", machineChoice);
+                document.getElementById("guesserText").textContent = userGuesses;
+                document.getElementById("guessLeft").textContent = guessAmount;
+            }
+
 
 // working*****************
-var letterBank = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-
-var machineChoice = letterBank[Math.floor(Math.random() * letterBank.length)]; 
 
 
-var wins = document.getElementById("winText")
-var looses = document.getElementById("loseText")
 
-    for (var i = 0; i < machineChoice.length; i++) {
-        console.log ("Secret Letter:" + machineChoice[i]);}
+// var secretLetter = document.getElementById("loseText")
+// for (var i = 0; i < machineChoice.length; i++) {
+//     console.log ("Secret Letter:" + machineChoice[i]);}
+    
+    
+    
+    
+    
         
-//         document.onkeyup = function(event) {
-//     console.log(machineChoice);
-//         machineChoice.textContent = event.key;
+// function keepScore() {
+
+// if ( userGuess === secrectLetter) {
+
+//     wins++;
+// }
+
+// else {
+
+
+//  losses++;
+
+
+
+
+// winText.textContent = document.getElementById("winText") + wins++;
+// loseText.textContent = document.getElementById("losetext") + losses++;
+
+// }
+// }
+
+
+// var guessTracker = document.getElementById("guessLeft")
+
+// document.onkeypress = function(
+
+// ){
+//     guessAmount.textContent = event.key;
 // };
 
-
-    
-
-
-
-    // for (let i = 0; index < array.length; index++) {
-    //     const element = array[index];
-        
-    // }
-
-
-
-
-
-if ((document.getElementById("winText") === document.getElementById("machineText"))){
-
-wins++;
-
-}
-
-else {
-    looses++
-
-}
-
-
-
-
-    // machineChoice.textContent = "";
 
 
 
